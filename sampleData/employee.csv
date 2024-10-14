@@ -1,0 +1,16 @@
+EmployeeID,FirstName,LastName,Email,DepartmentID,Salary,JoinDate
+101,John,Doe,johndoe@example.com,1,60000,2022-01-15
+102,Jane,Smith,janesmith@example.com,2,55000,2021-05-20
+103,Michael,Johnson,michaeljohnson@example.com,1,62000,2023-03-10
+104,Emily,Williams,emilywilliams@example.com,3,58000,2022-11-02
+105,David,Brown,davidbrown@example.com,2,54000,2021-09-18
+106,Sarah,Anderson,sarahanderson@example.com,1,63000,2023-02-05
+107,James,Jones,jamesjones@example.com,3,59000,2022-07-14
+108,Linda,Davis,lindadavis@example.com,2,56000,2021-12-30
+109,Robert,Miller,robertmiller@example.com,1,61000,2023-04-25
+110,Karen,Wilson,karenwilson@example.com,3,57000,2022-08-09
+101,John,Doe,johndoe@example.com,1,60000,2022-01-15
+102,Jane,Smith,janesmith@example.com,2,55000,2021-05-20
+103,Michael,Johnson,michaeljohnson@example.com,1,62000,2023-03-10
+104,Emily,Williams,emilywilliams@example.com,3,58000,2022-11-02
+105,David,Brown,davidbrown@example.com,2,54000,2021-09-18

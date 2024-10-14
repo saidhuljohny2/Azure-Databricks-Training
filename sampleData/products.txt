@@ -1,0 +1,9 @@
+Product,Category,Price,Quantity
+Widget,Electronics,10.00,100
+Gadget,Electronics,15.00,75
+Book,Books,5.00,200
+Toy,Toys,8.00,150
+Book,Books,5.00,200
+Toy,Toys,8.00,150
+jeans,cloth,12.25,150
+laptop,Electronics,10.00,100
