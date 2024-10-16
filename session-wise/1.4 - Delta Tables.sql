@@ -93,7 +93,7 @@ DESCRIBE HISTORY dbx_catalog.dbx_schema.employees;
 
 -- COMMAND ----------
 
--- DBTITLE 1,dbfs
+-- DBTITLE 1,External Delta Table
 -- MAGIC %python
 -- MAGIC
 -- MAGIC books_df = spark.read.csv("dbfs:/mnt/adls_container/books-data.csv", header=True, sep=";")
@@ -102,7 +102,7 @@ DESCRIBE HISTORY dbx_catalog.dbx_schema.employees;
 
 -- COMMAND ----------
 
--- DBTITLE 1,CSV
+-- DBTITLE 1,Managed Delta Table
 -- MAGIC %python
 -- MAGIC
 -- MAGIC books_df = spark.read.csv("dbfs:/mnt/adls_container/books-data.csv", header=True, sep=";")
@@ -111,7 +111,7 @@ DESCRIBE HISTORY dbx_catalog.dbx_schema.employees;
 
 -- COMMAND ----------
 
--- DBTITLE 1,JSON
+-- DBTITLE 1,Managed Delta Table
 -- MAGIC %python
 -- MAGIC
 -- MAGIC customers_df = spark.read.format("json").load("dbfs:/mnt/adls_container/customers-data.json")
@@ -120,7 +120,7 @@ DESCRIBE HISTORY dbx_catalog.dbx_schema.employees;
 
 -- COMMAND ----------
 
--- DBTITLE 1,PARQUET
+-- DBTITLE 1,Managed Delta Table
 -- MAGIC %python
 -- MAGIC
 -- MAGIC orders_df = spark.read.format("parquet").load("dbfs:/FileStore/export_001.parquet")
