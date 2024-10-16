@@ -69,3 +69,60 @@ DESCRIBE DETAIL dbx_catalog.dbx_schema.employees;
 -- COMMAND ----------
 
 DESCRIBE HISTORY dbx_catalog.dbx_schema.employees;
+
+-- COMMAND ----------
+
+-- DBTITLE 1,VERSIONS
+SELECT * FROM dbx_catalog.dbx_schema.employees@V4;
+
+-- COMMAND ----------
+
+-- DBTITLE 1,UPDATE
+UPDATE dbx_catalog.dbx_schema.employees 
+SET salary = salary + 100
+WHERE id = 1;
+
+-- COMMAND ----------
+
+DESCRIBE HISTORY dbx_catalog.dbx_schema.employees;
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC ## Multiple files
+
+-- COMMAND ----------
+
+-- DBTITLE 1,dbfs
+-- MAGIC %python
+-- MAGIC
+-- MAGIC books_df = spark.read.csv("dbfs:/mnt/adls_container/books-data.csv", header=True, sep=";")
+-- MAGIC
+-- MAGIC books_df.write.format("delta").mode("append").save("dbfs:/mnt/adls_container/books-data-delta/")
+
+-- COMMAND ----------
+
+-- DBTITLE 1,CSV
+-- MAGIC %python
+-- MAGIC
+-- MAGIC books_df = spark.read.csv("dbfs:/mnt/adls_container/books-data.csv", header=True, sep=";")
+-- MAGIC
+-- MAGIC books_df.write.format("delta").mode("append").saveAsTable("dbx_catalog.dbx_schema.books")
+
+-- COMMAND ----------
+
+-- DBTITLE 1,JSON
+-- MAGIC %python
+-- MAGIC
+-- MAGIC customers_df = spark.read.format("json").load("dbfs:/mnt/adls_container/customers-data.json")
+-- MAGIC
+-- MAGIC customers_df.write.format("delta").mode("overwrite").saveAsTable("dbx_catalog.dbx_schema.customers")
+
+-- COMMAND ----------
+
+-- DBTITLE 1,PARQUET
+-- MAGIC %python
+-- MAGIC
+-- MAGIC orders_df = spark.read.format("parquet").load("dbfs:/FileStore/export_001.parquet")
+-- MAGIC
+-- MAGIC orders_df.write.format("delta").mode("overwrite").saveAsTable("dbx_catalog.dbx_schema.orders")
