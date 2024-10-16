@@ -126,3 +126,92 @@ DESCRIBE HISTORY dbx_catalog.dbx_schema.employees;
 -- MAGIC orders_df = spark.read.format("parquet").load("dbfs:/FileStore/export_001.parquet")
 -- MAGIC
 -- MAGIC orders_df.write.format("delta").mode("overwrite").saveAsTable("dbx_catalog.dbx_schema.orders")
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC ## Advanced Delta Lake Features
+
+-- COMMAND ----------
+
+-- DBTITLE 1,Time Travel
+-- MAGIC %md
+-- MAGIC
+-- MAGIC ## Delta Time Travel
+-- MAGIC
+-- MAGIC - Time travel in Databricks refers to the ability to query historical versions of data in Delta Lake, which is an integral part of the Databricks platform. 
+-- MAGIC
+-- MAGIC - Delta Lake provides ACID (Atomicity, Consistency, Isolation, Durability) transactions and allows you to go back to earlier versions of your data at a specific point in time or a specific version.
+
+-- COMMAND ----------
+
+DESCRIBE HISTORY dbx_catalog.dbx_schema.employees;
+
+-- COMMAND ----------
+
+SELECT * FROM dbx_catalog.dbx_schema.employees;
+
+-- COMMAND ----------
+
+SELECT * FROM dbx_catalog.dbx_schema.employees VERSION AS OF 2;
+
+-- COMMAND ----------
+
+SELECT * FROM dbx_catalog.dbx_schema.employees@V3;
+
+-- COMMAND ----------
+
+DELETE FROM dbx_catalog.dbx_schema.employees;
+
+-- COMMAND ----------
+
+SELECT * FROM dbx_catalog.dbx_schema.employees;
+
+-- COMMAND ----------
+
+DESCRIBE HISTORY dbx_catalog.dbx_schema.employees;
+
+-- COMMAND ----------
+
+RESTORE TABLE dbx_catalog.dbx_schema.employees VERSION AS OF 3;
+
+-- COMMAND ----------
+
+SELECT * FROM dbx_catalog.dbx_schema.employees;
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC ## OPTIMIZE Command
+-- MAGIC
+-- MAGIC - In Databricks, the OPTIMIZE command is used to improve the performance of queries on Delta tables. 
+-- MAGIC - It reorganizes the data into larger, more efficient files called "data files" to reduce the number of file operations and to increase the overall speed of reading the data. 
+-- MAGIC - This command is especially useful when you have many small files or after a series of write operations that may have created fragmentation.
+
+-- COMMAND ----------
+
+DESCRIBE HISTORY dbx_catalog.dbx_schema.employees;
+
+-- COMMAND ----------
+
+DESCRIBE DETAIL dbx_catalog.dbx_schema.employees;
+
+-- COMMAND ----------
+
+OPTIMIZE dbx_catalog.dbx_schema.employees
+ZORDER BY (id);
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC ## VACUUM Command
+-- MAGIC
+-- MAGIC - In Databricks, the VACUUM command is used to remove old, unused files from Delta tables that are no longer needed by the current or earlier versions of the table. 
+-- MAGIC - These files are typically left behind after deletes, updates, or upserts (merge operations) and can lead to unnecessary storage consumption. 
+-- MAGIC - VACUUM helps clean up these files, ensuring efficient use of storage.
+
+-- COMMAND ----------
+
+VACUUM dbx_catalog.dbx_schema.employees FULL;
